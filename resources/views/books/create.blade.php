@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <form action="/book" method="book">
+                    <form action="/book" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="">Book Title</label>
@@ -23,6 +23,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

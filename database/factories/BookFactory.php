@@ -21,7 +21,7 @@ class BookFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $images = preg_split('/\n/',
             'https://d3i5mgdwi2ze58.cloudfront.net/7hqv6ddaqv363p4hadx6lymotow1
