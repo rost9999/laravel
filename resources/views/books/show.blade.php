@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{$book->id}}/edit" class="btn btn-primary">Edit</a>
+                <a href="/{{$book->id}}/edit" class="btn btn-primary">Edit</a>
                 <form action="{{$book->id}}" method="post" class="d-inline">
                     {{ csrf_field() }}
                     @method('DELETE')
