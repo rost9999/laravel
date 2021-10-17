@@ -19,6 +19,8 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="">Post Title</label>
+                                // у тебя input подсвечен желтеньким. и не случайно
+                                // свяжешь лейбл и инпут и при нажалии на лейбл курсор встанет в инпут
                                 <input type="text" name="title" class="form-control" value="{{$book->title}}">
                             </div>
 

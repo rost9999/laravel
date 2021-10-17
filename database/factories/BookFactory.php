@@ -23,6 +23,9 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        // не, это так не работает. твой код не должен зависеть от конкретных ссылок внешних ресурсов
+        // но в этом случае решения через фабрики нет. только дамп БД. но в любом случае убери это безобразие
+        // юзай $faker->imageUrl()
         $images = preg_split('/\n/',
             'https://d3i5mgdwi2ze58.cloudfront.net/7hqv6ddaqv363p4hadx6lymotow1
 https://d3i5mgdwi2ze58.cloudfront.net/f7nkbyqfsnrrlct3hs01jkrz2vdi
@@ -127,7 +130,10 @@ https://d3i5mgdwi2ze58.cloudfront.net/wltv7hw2ib2d7kgd11pdiecpbe5w');
         return [
             'title' => $this->faker->words(3,1),
             'body' => $this->faker->sentences(5,1),
-            'author_id' => Author::all()->random()->id,
+            'author_id' => Author::all()->random()->id, // ты понимаешь что ты при создании каждой книги будешь дергать из БД всех авторов?
+            // достань их один раз и вставляй из массива авторов
+            // а проще всего это сделать если тут вхардкодить еденичку
+            // и проставить автор айдти в сидере а не в фабрике
             'img_source' => $images[array_rand($images)]
         ];
     }

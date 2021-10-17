@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+// генерь с флагом -М ide-helper:models -M
+// а эти докблоки поубирай
 /**
  * App\Models\Author
  *
@@ -28,7 +30,8 @@ class Author extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = false; // не нужно, верни таймстемпы. почти всегда для сущности их пишут
+    // хуже не будет но если что можно будет понять что это за запись и откуда она взялась
 
     public function books(): HasMany
     {

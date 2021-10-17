@@ -27,11 +27,12 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
+        // валидировать нужно в реквесте
         $request->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
-        $book = new Book;
+        $book = new Book;// юзай Book::create([]);
         $book->title = $request->title;
         $book->body = $request->body;
 
@@ -51,11 +52,13 @@ class BooksController extends Controller
 
     public function update(Book $book, Request $request)
     {
+
+        // валидация в реквестах. реюзни тот что используешь при создании
         $request->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
-        $book->title = $request->title;
+        $book->title = $request->title; // не юзай магию $request->title . юзай $request->input('title')
         $book->body = $request->body;
 
         $book->save();
@@ -63,7 +66,7 @@ class BooksController extends Controller
     }
 
     public function destroy(Book $book)
-    {
+    {// статус 204 без текста. он тут никому не нужен
         $book->delete();
         return redirect('/')->with('success', 'Book deleted successfully!');
     }
