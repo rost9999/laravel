@@ -13,9 +13,7 @@ class BookFactory extends Factory
      *
      * @var string
      */
-
     protected $model = Book::class;
-//    protected $author = Author::all();
 
     /**
      * Define the model's default state.
@@ -26,10 +24,10 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->words(3, 1),
-            'body' => $this->faker->sentences(5, 1),
-            'author_id' => random_int(1, 10),
-            'image' => $this->faker->imageUrl(100, 100)
+            'title'     => $this->faker->words(3, true),
+            'body'      => $this->faker->sentences(5, true),
+            'author_id' => 1,
+            'image'     => $this->faker->imageUrl(100, 100)
         ];
     }
 }

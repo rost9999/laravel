@@ -16,7 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Author::factory(10)->create();
-        Book::factory(100)->create();
+        $this->call([
+            // сделать АвторСидер по аналогии
+//            AuthorSeeder::class,
+            UserSeeder::class,
+        ]);
     }
 }

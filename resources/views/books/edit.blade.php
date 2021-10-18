@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@php /** @var App\Models\Book $book */ @endphp
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
