@@ -4,38 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
-use Illuminate\Http\Request;
+use App\Http\Requests\BookStoreRequest;
 
 class BooksController extends Controller
 {
+    public function set200Character($books)
+    {
+        return $books->each(function ($book) {
+            $book->body = substr($book->body, 0, 200) . '...';
+            return $book;
+        });
+    }
+
     public function index()
     {
         $books = Book::all();
+        $books = $this->set200Character($books);
         return view('books.index', compact('books'));
     }
 
     public function byAuthor(Author $author)
     {
         $books = $author->books;
+        $books = $this->set200Character($books);
         return view('books.index', compact('books'));
     }
 
-    public function create()
+    public function store(BookStoreRequest $request)
     {
-        return view('books.create');
-    }
-
-    public function store(Request $request)
-    {
-        // валидировать нужно в реквесте
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-        $book = new Book;// юзай Book::create([]);
-        $book->title = $request->title;
-        $book->body = $request->body;
-
+        $request->validated();
+        $book = new Book(); // юзай Book::create([]);
+        $book->title = $request->input('title');
+        $book->body = $request->input('body');
+        $book->author_id = 1;
         $book->save();
         return redirect('/')->with('success', 'Book was added successfully!');
     }
@@ -50,16 +51,11 @@ class BooksController extends Controller
         return view('books.edit', compact('book'));
     }
 
-    public function update(Book $book, Request $request)
+    public function update(Book $book, BookStoreRequest $request)
     {
-
-        // валидация в реквестах. реюзни тот что используешь при создании
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-        $book->title = $request->title; // не юзай магию $request->title . юзай $request->input('title')
-        $book->body = $request->body;
+        $request->validated();
+        $book->title = $request->input('title');
+        $book->body = $request->input('body');
 
         $book->save();
         return redirect('/')->with('success', 'Book updated successfully!');

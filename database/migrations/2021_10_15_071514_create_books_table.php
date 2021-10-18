@@ -17,8 +17,9 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
-            $table->text('img_source'); // img_source -> image
+            $table->text('image')->nullable();
             $table->foreignId('author_id');
+            $table->timestamps();
         });
     }
 

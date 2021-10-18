@@ -1,5 +1,6 @@
 @extends('layouts.app')
-// добавь пхпдок чтобы подсветились переменные
+{{--// добавь пхпдок чтобы подсветились переменные--}}
+@php /** @var App\Models\Book[] $book */ @endphp
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -21,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/{{$book->id}}/edit" class="btn btn-primary">Edit</a>
+                <a href="/book/{{$book->id}}/edit" class="btn btn-primary">Edit</a>
                 <form action="{{$book->id}}" method="post" class="d-inline">
                     {{ csrf_field() }}
                     @method('DELETE')
