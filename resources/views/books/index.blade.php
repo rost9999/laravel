@@ -1,38 +1,25 @@
 @extends('layouts.app')
-{{-- обрати внимание что с этой строкой иде знает что такое $books и подсвечивает тебе свойства в фориче ниже + они стали кликабельные--}}
-{{-- ты не допустишь ошибок если иде тебя контролирует. это важно. убери эту строку и поймешь о чем я--}}
-@php /** @var App\Models\Book[] $books */ @endphp
+@php /** @var App\Models\Book $books */ @endphp
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <a href="/book/create" class="btn btn-primary mb-2">Add Book</a>
-                <br>
-                // давай табличку превратим в ленту новостей. таблица это не удобно
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Image</th>
-                        <th>Body</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($books as $book)
-                        <tr>
-                            <td>{{ $book->id }}</td>
-                            <td><a href="/book/{{$book->id}}">{{ $book->title }}</a></td>
-                            <td><a href="/author/{{$book->author->id}}">{{ $book->author->name }}</a></td>
-                            <td><img src="{{ $book->image }}" alt=""></td>
-                            <td>{{($book->body) }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+        <a href="/book/create" class="btn btn-primary mb-2">Add Book</a>
+        @foreach($books as $book)
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ $book->image }}" class="img-fluid rounded-start" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/book/{{$book->id}}">{{ $book->title }}</a></h5>
+                            <p class="card-text">{{($book->body) }}</p>
+                            <p class="card-text"><small class="text-muted"><a
+                                        href="/author/{{$book->author->id}}">{{ $book->author->name }}</a></small></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+    @endforeach
     </div>
 @endsection

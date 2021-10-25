@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
-use App\Models\Book;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,14 +11,13 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function run()
     {
         $this->call([
-            // сделать АвторСидер по аналогии
-//            AuthorSeeder::class,
-            UserSeeder::class,
+            AuthorSeeder::class,
+            BookSeeder::class,
         ]);
     }
 }

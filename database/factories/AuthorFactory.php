@@ -22,7 +22,7 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->title . $this->faker->firstName . $this->faker->lastName
+            'name' => $this->faker->title .' '. $this->faker->firstName .' '. $this->faker->lastName
         ];
     }
 }

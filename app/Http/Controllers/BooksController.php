@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Http\Requests\BookStoreRequest;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
+use Request;
 
 class BooksController extends Controller
 {
@@ -25,17 +28,19 @@ class BooksController extends Controller
         return view('books.index', compact('books'));
     }
 
-    public function store(BookStoreRequest $request)
+    public function store(BookStoreRequest $request): RedirectResponse
     {
         $book = Book::create([
-            'name' => $request->input('name'),
+            'title' => $request->input('title'),
             'body' => $request->input('body'),
+            'author_id' => Author::where('name', $request->input('author_id'))->first()->id,
         ]);
-//        $book->author_id = 1; // разберись
-
-        return redirect()
-            ->back()
-            ->with('success', 'Book was added successfully!');
+        if ($book) {
+            return redirect()
+                ->back()
+                ->with('success', 'Book was added successfully!');
+        }
+        return redirect(Request::url());
     }
 
     public function show(Book $book)
@@ -45,14 +50,19 @@ class BooksController extends Controller
 
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        $authors = Author::all();
+        return view('books.edit', compact('book', 'authors'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(Book $book, BookStoreRequest $request)
     {
         // проверить с неправильными данными. поиграйся
         $book->title = $request->input('title');
         $book->body = $request->input('body');
+        $book->author_id = Author::where('name', $request->input('author_id'))->first()->id;
 
         $book->save();
 
@@ -63,8 +73,7 @@ class BooksController extends Controller
     {
         $book->delete();
 
-        return redirect()
-            ->back()
+        return redirect('/')
             ->with('success', 'Book deleted successfully!');
     }
 

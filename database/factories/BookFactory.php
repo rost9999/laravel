@@ -27,7 +27,7 @@ class BookFactory extends Factory
             'title'     => $this->faker->words(3, true),
             'body'      => $this->faker->sentences(5, true),
             'author_id' => 1,
-            'image'     => $this->faker->imageUrl(100, 100)
+            'image'     => $this->faker->imageUrl(600, 480, 'nightlife', true)
         ];
     }
 }

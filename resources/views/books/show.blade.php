@@ -1,5 +1,4 @@
 @extends('layouts.app')
-{{--// добавь пхпдок чтобы подсветились переменные--}}
 @php /** @var App\Models\Book[] $book */ @endphp
 @section('content')
     <div class="container">
@@ -14,8 +13,9 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <img src="{{ $book->img_source }}" alt="">
+                        <img src="{{ $book->image }}" alt="">
                         <h2>{{$book->title}}</h2>
+                        <h3>{{$book->author->name}}</h3>
                         <br>
                         <div>
                             {{$book->body}}
